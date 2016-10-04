@@ -62,7 +62,6 @@ public class VueForme {
 	private Circle circle;
 	private Rectangle rectangle;
 	private StackPane stackp;
-	
 
 	/**
 	 * Constructeur appeler par le controleur
@@ -112,8 +111,6 @@ public class VueForme {
 		// vboxz dans hbox
 		hbox1 = new HBox(vbox, vbox1, vbox2);
 		hbox1.setSpacing(10);
-		
-		
 
 		// E3 textfield position
 		label3 = new Label("Position X");
@@ -170,14 +167,28 @@ public class VueForme {
 		stackp.setPadding(new Insets(20));
 		borderp.setCenter(stackp);
 
-		scene = new Scene(borderp);
-		scene.getStylesheets().add("/styles/style_forme.css");
+		scene = new Scene(borderp, 800, 800);
 
 	}
 
 	public Scene getScene() {
-
 		return scene;
+	}
+
+	public Button getBoutonGenerer() {
+		return butt1;
+	}
+
+	public Button getBoutonReset() {
+		return butt2;
+	}
+
+	public Button getBoutonShutdown() {
+		return butt3;
+	}
+	
+	public CheckBox getCheckbox() {
+		return checkb;
 	}
 
 }

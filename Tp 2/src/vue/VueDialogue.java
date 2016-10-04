@@ -23,7 +23,7 @@ public class VueDialogue {
 		
 		vbox = new VBox(label,butt);
 		
-		scene = new Scene(vbox, 800, 600);
+		scene = new Scene(vbox, 600, 200);
 
 	}
 
