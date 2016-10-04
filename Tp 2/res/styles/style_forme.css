@@ -1,0 +1,35 @@
+
+
+.label_blue{
+	-fx-text-fill: blue;
+	-fx-font-weight: bold;
+	
+}
+
+.rect{
+	-fx-fill: #f0e68c;
+	-fx-effect: dropshadow(three-pass-box, blue, 10.0, 0.0, 0.0, 0.0);
+	-fx-padding: 50.0;
+}
+
+.butt_bas{
+
+	-fx-label-padding: 3.0px;
+	-fx-font-weight: bold;
+	-fx-background-color: linear-gradient(#66FFFF, #3300FF);
+	-fx-alignment :   center; 
+	-fx-padding: 3.0 30.0 3.0 30.0;
+	-fx-background-radius: 50;
+	
+}
+
+.hbox_bas{
+	-fx-spacing: 20px;
+	-fx-alignment:center;
+}
+.effeton{
+	-fx-effect: dropshadow(three-pass-box, blue, 10.0, 0.0, 0.0, 0.0);
+}
+.effetoff{
+	
+}

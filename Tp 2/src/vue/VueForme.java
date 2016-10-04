@@ -168,7 +168,8 @@ public class VueForme {
 		borderp.setCenter(stackp);
 
 		scene = new Scene(borderp, 800, 800);
-
+		scene.getStylesheets().add("/styles/style_forme.css");
+		
 	}
 
 	public Scene getScene() {
@@ -190,5 +191,17 @@ public class VueForme {
 	public CheckBox getCheckbox() {
 		return checkb;
 	}
+	
+	public TextField getTextFdata() {
+		return textf;
+	}
 
+	public TextField getTextF1data() {
+		return textf1;
+	}
+	
+	public TextField getTextF2data() {
+		return textf2;
+	}
+	
 }

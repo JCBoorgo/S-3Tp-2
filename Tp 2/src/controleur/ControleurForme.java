@@ -54,6 +54,11 @@ public class ControleurForme extends Application {
 	private void genererForme() {
 		// TODO
 		// Caller la méthode qui nous fait une forme
+
+		//j'ai créer une forme avec les éléments présent dans les textfields de largeur et hauteur
+		FormesFactory forme = new FormesFactory(Integer.parseInt(vueFormes.getTextFdata().getText()),
+				Integer.parseInt(vueFormes.getTextF1data().getText()));
+
 		// TEST -----V
 		vueFormes.getBoutonGenerer().setText("LEL EVENT WORK");
 		// GG WP
@@ -62,16 +67,18 @@ public class ControleurForme extends Application {
 	private void resetAffichage() {
 		// TODO
 		// Caller la méthode qui wipe les formes
+
 		// TEST -----V
 		vueFormes.getBoutonReset().setText("LEL EVENT WORK TOO");
 		// GG WP AGAIN
 	}
 
 	private void shutdown() {
-		// TODO
-		// Caller la méthode qui wipe les formes
+		// TODO - FAIT CR
+		Stage stage = (Stage) vueFormes.getScene().getWindow();
+		stage.close();
 		// TEST -----V
-		vueFormes.getBoutonShutdown().setText("ME WORK ALSO");
+		vueFormes.getBoutonShutdown().setText("Boutton foncitonne");
 		// GG WP FINAL
 	}
 
@@ -79,9 +86,11 @@ public class ControleurForme extends Application {
 		// TODO
 		// Caller la méthode qui va faire on/off sur l'effet
 		if(vueFormes.getCheckbox().isSelected()) {
-			// Cache cochée, effet on
+			.getStyleClass().add("effeton");
+			//jai créer le css pour les effects faut juste trouver une façon de trouver les formes et de leur appliquer
 		} else {
 			// Case pas cochée, effet off
+			.getStyleClass().add("effetoff");
 		}
 		// Ok wait le if va aller dans la vue... il est ici en attendant
 	}
