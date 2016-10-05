@@ -50,10 +50,10 @@ public class FormesFactory {
 	}
 
 	private boolean validerX(int x) {
-		return ((x > 0) && (x < largeur));
+		return ((x > 0) && (x < this.getLargeur()));
 	}
 
 	private boolean validerY(int y) {
-		return ((y > 0) && (y < hauteur));
+		return ((y > 0) && (y < this.getHauteur()));
 	}
 }

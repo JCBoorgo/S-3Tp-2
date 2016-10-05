@@ -1,9 +1,16 @@
 package vue;
 
+import com.sun.javafx.geom.BaseBounds;
+import com.sun.javafx.geom.transform.BaseTransform;
+import com.sun.javafx.scene.BoundsAccessor;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
@@ -12,6 +19,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Effect;
+import javafx.scene.effect.Glow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -20,11 +30,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import modele.DataFactory;
+import modele.Ligne;
+import modele.Ovale;
+import modele.Triangle;
 
 public class VueForme {
 
 	private Scene scene;
 	private BorderPane borderp;
+	private Canvas canevas = new Canvas(600, 600);
+	private GraphicsContext gc = canevas.getGraphicsContext2D();
 	private VBox vbox;
 	private VBox vbox1;
 	private VBox vbox2;
@@ -157,19 +173,16 @@ public class VueForme {
 		vbox9.setPadding(new Insets(20));
 		borderp.setRight(vbox9);
 
-		// GROS CERCLE ROUGE
-		circle = new Circle(100);
-		circle.setFill(Color.RED);
-		rectangle = new Rectangle(450, 450);
-		rectangle.setFill(Color.TRANSPARENT);
-		rectangle.getStyleClass().add("rect");
-		stackp = new StackPane(rectangle, circle);
-		stackp.setPadding(new Insets(20));
+		// Canevas
+		stackp = new StackPane();
+		stackp.getChildren().add(canevas);
 		borderp.setCenter(stackp);
+		stackp.getStyleClass().add("rect");
+		borderp.setPadding(new Insets(20));
 
-		scene = new Scene(borderp, 800, 800);
+		scene = new Scene(borderp);
 		scene.getStylesheets().add("/styles/style_forme.css");
-		
+
 	}
 
 	public Scene getScene() {
@@ -187,11 +200,11 @@ public class VueForme {
 	public Button getBoutonShutdown() {
 		return butt3;
 	}
-	
+
 	public CheckBox getCheckbox() {
 		return checkb;
 	}
-	
+
 	public TextField getTextFdata() {
 		return textf;
 	}
@@ -199,9 +212,73 @@ public class VueForme {
 	public TextField getTextF1data() {
 		return textf1;
 	}
-	
+
 	public TextField getTextF2data() {
 		return textf2;
 	}
+
+	public TextField getTextF3data() {
+		return textf3;
+	}
+
+	public TextField getTextF4data() {
+		return textf4;
+	}
+
+	public ListView<String> getListView() {
+		return listv;
+	}
+
+	public ColorPicker getColorPicker() {
+		return choiceb;
+	}
+
+	public Slider getSlider() {
+		return slider;
+	}
+
+	public void viderAffichage() {
+		gc.clearRect(0, 0, 600, 600);
+	}
+
+	public void ajouterForme(DataFactory data) {
+		String forme = data.getType();
+		switch (forme) {
+		case "Ligne":
+			gc.setStroke(data.getCouleur());
+			gc.strokeLine(data.getPosX(), data.getPosY(), data.getPosX() + data.getLargeur(),
+					data.getPosY() + data.getHauteur());
+			break;
+		case "Ovale":
+			gc.setFill(data.getCouleur());
+			gc.fillOval(data.getPosX(), data.getPosY(), data.getLargeur(), data.getHauteur());
+			break;
+		case "Rectangle":
+			gc.setFill(data.getCouleur());
+			gc.fillRect(data.getPosX(), data.getPosY(), data.getLargeur(), data.getHauteur());
+			break;
+		case "Triangle":
+			gc.setFill(data.getCouleur());
+			// TODO WTF POLYGON
+			gc.fillPolygon(data.getPointsTriangleX(), data.getPointsTriangleY(), 3);
+			break;
+		default:
+			break;
+		}
+	}
+
+	public void sliderUpdate() {
+
+		canevas.setOpacity(slider.getValue());
+
+	}
 	
+	public void changerEffet(){
+		if (this.getCheckbox().isSelected()) {
+			gc.applyEffect(new DropShadow());
+		} else {
+			gc.setEffect(null);
+		}
+	}
+
 }

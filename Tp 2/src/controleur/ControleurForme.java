@@ -1,9 +1,16 @@
 package controleur;
 
+import exception.FormeException;
+import exception.ZoneDessinException;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import modele.DataFactory;
+import modele.Forme;
 import modele.FormesFactory;
 import vue.VueDialogue;
 import vue.VueForme;
@@ -21,6 +28,7 @@ public class ControleurForme extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		vueFormes = new VueForme();
+		vueDialogue = new VueDialogue();
 		stage.setTitle("Logiciel de dessin");
 		ajouterEcouteurs();
 		stage.setScene(vueFormes.getScene());
@@ -49,49 +57,78 @@ public class ControleurForme extends Application {
 				mettreEffet();
 			}
 		});
+		vueFormes.getSlider().valueProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> obs, Number old, Number nv) {
+					vueFormes.sliderUpdate();
+			}
+		});
+		vueDialogue.getBouton().setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				miniShutdown();
+			}
+		});
 	}
 
 	private void genererForme() {
 		// TODO
 		// Caller la méthode qui nous fait une forme
-
-		//j'ai créer une forme avec les éléments présent dans les textfields de largeur et hauteur
-		FormesFactory forme = new FormesFactory(Integer.parseInt(vueFormes.getTextFdata().getText()),
-				Integer.parseInt(vueFormes.getTextF1data().getText()));
-
-		// TEST -----V
-		vueFormes.getBoutonGenerer().setText("LEL EVENT WORK");
-		// GG WP
+		// Créer un data avec infos, formesfact avec data, data fait forme, tout
+		// remonte
+		DataFactory data = null;
+		if (vueFormes.getListView().getSelectionModel().getSelectedItem().equals("Triangle")) {
+			data = new DataFactory(Integer.parseInt(vueFormes.getTextFdata().getText()),
+					Integer.parseInt(vueFormes.getTextF1data().getText()),
+					Integer.parseInt(vueFormes.getTextF2data().getText()), vueFormes.getColorPicker().getValue(),
+					Integer.parseInt(vueFormes.getTextF3data().getText()),
+					Integer.parseInt(vueFormes.getTextF4data().getText()),
+					vueFormes.getListView().getSelectionModel().getSelectedItem());
+		} else {
+			data = new DataFactory(Integer.parseInt(vueFormes.getTextFdata().getText()),
+					Integer.parseInt(vueFormes.getTextF1data().getText()), vueFormes.getColorPicker().getValue(),
+					Integer.parseInt(vueFormes.getTextF3data().getText()),
+					Integer.parseInt(vueFormes.getTextF4data().getText()),
+					vueFormes.getListView().getSelectionModel().getSelectedItem());
+		}
+		FormesFactory formesF = new FormesFactory(600, 600);
+		try {
+			Forme formedessin = formesF.getInstance(data);
+			vueFormes.ajouterForme(data);
+		} catch (FormeException e) {
+			//popper fenêtre forme invalide
+			vueDialogue.creationfenetre("Dessin");
+			Stage stageDialogue = new Stage();
+			stageDialogue.setTitle("Error");
+			stageDialogue.setScene(vueDialogue.getScene());
+			stageDialogue.show();
+		} catch (ZoneDessinException e) {
+			//popper fenêtre forme out of bounds
+			vueDialogue.creationfenetre("Zone");
+			Stage stageDialogue = new Stage();
+			stageDialogue.setTitle("Error");
+			stageDialogue.setScene(vueDialogue.getScene());
+			stageDialogue.show();
+		}
 	}
 
 	private void resetAffichage() {
-		// TODO
+		// TODO - fait
 		// Caller la méthode qui wipe les formes
-
-		// TEST -----V
-		vueFormes.getBoutonReset().setText("LEL EVENT WORK TOO");
-		// GG WP AGAIN
+		vueFormes.viderAffichage();
 	}
 
 	private void shutdown() {
 		// TODO - FAIT CR
 		Stage stage = (Stage) vueFormes.getScene().getWindow();
 		stage.close();
-		// TEST -----V
-		vueFormes.getBoutonShutdown().setText("Boutton foncitonne");
-		// GG WP FINAL
 	}
 
 	private void mettreEffet() {
 		// TODO
-		// Caller la méthode qui va faire on/off sur l'effet
-		if(vueFormes.getCheckbox().isSelected()) {
-			.getStyleClass().add("effeton");
-			//jai créer le css pour les effects faut juste trouver une façon de trouver les formes et de leur appliquer
-		} else {
-			// Case pas cochée, effet off
-			.getStyleClass().add("effetoff");
-		}
-		// Ok wait le if va aller dans la vue... il est ici en attendant
+		vueFormes.changerEffet();
+	}
+	
+	private void miniShutdown() {
+		Stage stage = (Stage) vueDialogue.getScene().getWindow();
+		stage.close();
 	}
 }
