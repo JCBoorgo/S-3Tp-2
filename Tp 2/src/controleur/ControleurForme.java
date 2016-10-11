@@ -7,7 +7,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import modele.DataFactory;
 import modele.Forme;
@@ -59,14 +58,10 @@ public class ControleurForme extends Application {
 		});
 		vueFormes.getSlider().valueProperty().addListener(new ChangeListener<Number>() {
 			public void changed(ObservableValue<? extends Number> obs, Number old, Number nv) {
-					vueFormes.sliderUpdate();
+				vueFormes.sliderUpdate();
 			}
 		});
-		vueDialogue.getBouton().setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				miniShutdown();
-			}
-		});
+
 	}
 
 	private void genererForme() {
@@ -94,19 +89,13 @@ public class ControleurForme extends Application {
 			Forme formedessin = formesF.getInstance(data);
 			vueFormes.ajouterForme(data);
 		} catch (FormeException e) {
-			//popper fenêtre forme invalide
+			
 			vueDialogue.creationfenetre("Dessin");
-			Stage stageDialogue = new Stage();
-			stageDialogue.setTitle("Error");
-			stageDialogue.setScene(vueDialogue.getScene());
-			stageDialogue.show();
+
 		} catch (ZoneDessinException e) {
-			//popper fenêtre forme out of bounds
+			
 			vueDialogue.creationfenetre("Zone");
-			Stage stageDialogue = new Stage();
-			stageDialogue.setTitle("Error");
-			stageDialogue.setScene(vueDialogue.getScene());
-			stageDialogue.show();
+
 		}
 	}
 
@@ -126,9 +115,5 @@ public class ControleurForme extends Application {
 		// TODO
 		vueFormes.changerEffet();
 	}
-	
-	private void miniShutdown() {
-		Stage stage = (Stage) vueDialogue.getScene().getWindow();
-		stage.close();
-	}
+
 }

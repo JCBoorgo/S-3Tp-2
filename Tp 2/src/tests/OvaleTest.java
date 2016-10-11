@@ -8,13 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import exception.FormeException;
-import javafx.scene.paint.Color;
 import modele.Ovale;
 
 public class OvaleTest {
 
 	private Ovale c1, c2, c3, c4;
-	//TODO MODIFIER ...pourquoi?
+	
 	@Before
 	public void setUp() throws Exception {
 		try {

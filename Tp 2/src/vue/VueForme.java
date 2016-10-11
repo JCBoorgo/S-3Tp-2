@@ -1,40 +1,28 @@
 package vue;
 
-import com.sun.javafx.geom.BaseBounds;
-import com.sun.javafx.geom.transform.BaseTransform;
-import com.sun.javafx.scene.BoundsAccessor;
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
-import javafx.scene.effect.Glow;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import modele.DataFactory;
-import modele.Ligne;
-import modele.Ovale;
-import modele.Triangle;
-
 public class VueForme {
 
 	private Scene scene;
@@ -259,7 +247,6 @@ public class VueForme {
 			break;
 		case "Triangle":
 			gc.setFill(data.getCouleur());
-			// TODO WTF POLYGON
 			gc.fillPolygon(data.getPointsTriangleX(), data.getPointsTriangleY(), 3);
 			break;
 		default:
