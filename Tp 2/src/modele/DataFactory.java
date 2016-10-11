@@ -103,6 +103,10 @@ public class DataFactory {
 		this.pointsTriangleY = pointsY;
 	}
 
+	/**
+	 * Calcule les coordonnées des sommets du triangle, selon les mesures
+	 * de ses côtés
+	 */
 	private void calculerPointsTriangle() {
 		double[] arrayX = new double[3];
 		double[] arrayY = new double[3];
@@ -121,6 +125,12 @@ public class DataFactory {
 		this.setPointsTriangle(arrayX, arrayY);
 	}
 
+	/**
+	 * Envoie la forme au contrôleur
+	 * @param type
+	 * @return
+	 * @throws FormeException - si la forme ne peut être créée
+	 */
 	public Forme envoyerForme(String type) throws FormeException {
 		Forme retour = null;
 		switch (type) {

@@ -31,6 +31,13 @@ public class FormesFactory {
 		this.hauteur = hauteur;
 	}
 
+	/**
+	 * Crée une forme et valide si la forme entre dans la zone de dessin
+	 * @param data
+	 * @return
+	 * @throws FormeException - si la forme ne peut être créée
+	 * @throws ZoneDessinException - si la forme ne rentre pas dans la zone
+	 */
 	public Forme getInstance(DataFactory data) throws FormeException, ZoneDessinException {
 		Forme forme = null;
 		if (validerFormeDansZone(data.getLargeur(), data.getHauteur(), data.getPosX(), data.getPosY())){
@@ -41,6 +48,11 @@ public class FormesFactory {
 		return forme;
 	}
 
+	/**
+	 * Vérifie que la dimension en paramètre existe
+	 * @param dim
+	 * @return
+	 */
 	private boolean validerDimension(int dim) {
 		return (dim > 0);
 	}
@@ -49,10 +61,20 @@ public class FormesFactory {
 		return (validerX(largeur + posX) && validerY(hauteur + posY));
 	}
 
+	/**
+	 * Vérifie que le x rentre dans la largeur de la zone de dessin
+	 * @param x
+	 * @return
+	 */
 	private boolean validerX(int x) {
 		return ((x > 0) && (x < this.getLargeur()));
 	}
 
+	/**
+	 * Vérifie que le y rentre dans la hauteur de la zone de dessin
+	 * @param y
+	 * @return
+	 */
 	private boolean validerY(int y) {
 		return ((y > 0) && (y < this.getHauteur()));
 	}

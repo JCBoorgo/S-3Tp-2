@@ -12,16 +12,20 @@ public class VueDialogue {
 
 	}
 
+	/**
+	 * Crée la fenêtre d'alerte, selon la String passée en paramètre
+	 * @param ex - Dicte l'explication à afficher
+	 */
 	public void creationfenetre(String ex) {
 		if (ex.equals("Dessin")) {
 
 			Alert alert = new Alert(AlertType.ERROR);
-			alert.setTitle("Error");
+			alert.setTitle("Erreur de forme");
 			alert.setHeaderText(null);
 			alert.setContentText("La forme ne sait pas comment être valide?");
 
 			alert.showAndWait();
-		} else if (ex.equals("Zone")) {
+		} else if (ex.equals("Erreur de zone de dessin")) {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Error");
 			alert.setHeaderText(null);

@@ -34,6 +34,9 @@ public class ControleurForme extends Application {
 		stage.show();
 	}
 
+	/**
+	 * Méthode qui met les écouteurs d'évènements sur les contrôles de la vue
+	 */
 	private void ajouterEcouteurs() {
 		vueFormes.getBoutonGenerer().setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -64,11 +67,11 @@ public class ControleurForme extends Application {
 
 	}
 
+	/**
+	 * Méthode qui prend les données de la vue et les envoie en DataFactory pour
+	 * que la forme soit créée, puis la retourne à la vue
+	 */
 	private void genererForme() {
-		// TODO
-		// Caller la méthode qui nous fait une forme
-		// Créer un data avec infos, formesfact avec data, data fait forme, tout
-		// remonte
 		DataFactory data = null;
 		if (vueFormes.getListView().getSelectionModel().getSelectedItem().equals("Triangle")) {
 			data = new DataFactory(Integer.parseInt(vueFormes.getTextFdata().getText()),
@@ -89,30 +92,35 @@ public class ControleurForme extends Application {
 			Forme formedessin = formesF.getInstance(data);
 			vueFormes.ajouterForme(data);
 		} catch (FormeException e) {
-			
+
 			vueDialogue.creationfenetre("Dessin");
 
 		} catch (ZoneDessinException e) {
-			
+
 			vueDialogue.creationfenetre("Zone");
 
 		}
 	}
 
+	/**
+	 * Demande à la vue de réinitialiser l'affichage (effacer toutes les formes)
+	 */
 	private void resetAffichage() {
-		// TODO - fait
-		// Caller la méthode qui wipe les formes
 		vueFormes.viderAffichage();
 	}
 
+	/**
+	 * Fait fermer l'application
+	 */
 	private void shutdown() {
-		// TODO - FAIT CR
 		Stage stage = (Stage) vueFormes.getScene().getWindow();
 		stage.close();
 	}
 
+	/**
+	 * Change l'effet, s'il est activé ou non
+	 */
 	private void mettreEffet() {
-		// TODO
 		vueFormes.changerEffet();
 	}
 

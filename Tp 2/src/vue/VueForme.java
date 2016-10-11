@@ -68,14 +68,14 @@ public class VueForme {
 	private StackPane stackp;
 
 	/**
-	 * Constructeur appeler par le controleur
+	 * Constructeur appeler par le contrôleur
 	 */
 	public VueForme() {
 		construireInterface();
 	}
 
 	/**
-	 * Fonction appeler par le constructeur qui crée l'interface
+	 * Fonction appelée par le constructeur qui crée l'interface
 	 */
 
 	private void construireInterface() {
@@ -229,6 +229,10 @@ public class VueForme {
 		gc.clearRect(0, 0, 600, 600);
 	}
 
+	/**
+	 * Méthode qui affiche la forme passée en paramètre
+	 * @param data - la forme à créer
+	 */
 	public void ajouterForme(DataFactory data) {
 		String forme = data.getType();
 		switch (forme) {
@@ -254,12 +258,16 @@ public class VueForme {
 		}
 	}
 
+	/**
+	 * Change l'opacité selon la valeur du slider
+	 */
 	public void sliderUpdate() {
-
 		canevas.setOpacity(slider.getValue());
-
 	}
 	
+	/**
+	 * Active ou désactive l'effet selon l'état de la checkbox
+	 */
 	public void changerEffet(){
 		if (this.getCheckbox().isSelected()) {
 			gc.applyEffect(new DropShadow());
